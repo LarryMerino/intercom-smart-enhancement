@@ -1,0 +1,35 @@
+[package]
+name = "intercom_firmware"
+version = "0.1.0"
+authors = ["larry"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[profile.dev]
+lto = "off"
+[profile.release]
+lto = "off"
+
+[dependencies]
+hal                = { package = "esp32c3-hal", version = "0.12.0", features = ["embassy-time-timg0", "async", "embassy", "log" ] }
+esp-backtrace      = { version = "0.7.0", features = ["esp32c3", "panic-handler", "exception-handler", "print-uart"] }
+esp-println        = { version = "0.6.0", features = ["esp32c3", "log"] }
+esp-hal-smartled   = { version = "0.5.0", features = ["esp32c3"] }
+smart-leds         = { version = "0.3.0" }
+embassy-executor   = { version = "0.2.0", features = ["nightly", "integrated-timers", "arch-riscv32", "executor-thread"] }
+embassy-time       = { version = "0.1.3",  features = ["nightly", "tick-hz-1_000_000"] }
+embedded-hal-async = { version = "1.0.0-rc.1"}
+static_cell        = { version = "1.2.0", features = ["nightly"] }
+embedded-io        = { version = "0.4.0" }
+log                = { version = "0.4.20" }
+embassy-net        = { version = "0.1.0", features = [ "nightly", "tcp", "udp", "dhcpv4", "medium-ethernet" ] }
+esp-wifi           = { git = "https://github.com/esp-rs/esp-wifi", rev = "6c16dfe8aa65d578273528b9a55e940c20c87236", features = ["esp32c3", "embassy-net","wifi", "wifi-logs"]}
+embedded-svc       = { version = "0.25.3", default-features = false }
+owo-colors         = { version = "3.5.0" }
+heapless           = { version = "0.7.16" }
+
+[profile.dev.package.esp-wifi]
+opt-level = 3
+
+[package.metadata.espflash]
+partition_table = "partitions.csv"
